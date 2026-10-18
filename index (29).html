@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0c">
+<title>DMX FF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07070a;--bg2:#0e0e13;--card:#13131a;--line:#2a1216;--red:#ff1e3c;--red2:#b3001b;--text:#f4f4f7;--mute:#9a9aa8;--green:#1fa855}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:radial-gradient(900px 500px at 50% -120px,#3a0610 0,transparent 70%),var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:16px 16px 70px}
+.logo{font-family:Orbitron,sans-serif;font-weight:900;letter-spacing:2px}
+.logo b{color:var(--red);text-shadow:0 0 14px rgba(255,30,60,.7)}
+header{display:flex;align-items:center;justify-content:space-between;padding:6px 0 18px}
+header .logo{font-size:20px;color:var(--text);text-decoration:none}
+header a.key{font-size:13px;color:#fff;text-decoration:none;border:1px solid var(--red2);padding:8px 12px;border-radius:999px;background:rgba(255,30,60,.1)}
+.back{color:var(--text);text-decoration:none;font-weight:600}
+h1{font-family:Orbitron,sans-serif;font-size:24px;margin:4px 0 6px}
+h2{font-family:Orbitron,sans-serif;font-size:15px;letter-spacing:1px;margin:22px 0 10px;color:var(--red)}
+.sub{color:var(--mute);margin-bottom:18px;line-height:1.5}
+.hero{position:relative;overflow:hidden;border:1px solid var(--red2);border-radius:22px;padding:26px 20px;background:linear-gradient(135deg,#240308,#0c0c10 60%);box-shadow:0 0 40px rgba(255,30,60,.15)}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(255,30,60,.35),transparent 65%)}
+.hero .logo{font-size:38px}.hero p{color:var(--mute);margin-top:8px;line-height:1.5;position:relative;z-index:1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center}
+.stat b{display:block;font-family:Orbitron,sans-serif;font-size:20px;color:var(--red)}.stat span{font-size:11px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.big{background:linear-gradient(160deg,#1b0a0e,var(--card));border:1px solid var(--line);border-radius:18px;padding:26px 10px;text-align:center;text-decoration:none;color:var(--text);font-family:Orbitron,sans-serif;font-weight:800;font-size:17px;transition:.15s}
+.big:active,.big:hover{border-color:var(--red);box-shadow:0 0 22px rgba(255,30,60,.25)}
+.big small{display:block;font-family:Inter;font-weight:400;color:var(--mute);font-size:12px;margin-top:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:10px}.feat .card{margin:0;font-size:14px}.feat .card b{display:block;margin:4px 0 2px}.feat .card span{color:var(--mute);font-size:12px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.item b{font-size:15px;line-height:1.35}.item small{color:var(--mute)}
+.price{color:#fff;background:linear-gradient(135deg,var(--red),var(--red2));padding:6px 12px;border-radius:999px;font-weight:700;white-space:nowrap}
+.chip{display:inline-block;font-size:12px;border:1px solid var(--red2);color:#ffb3bd;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.video{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;margin-bottom:14px;border:1px solid var(--line)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+button,.btn{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border:0;border-radius:12px;padding:14px 18px;font-size:16px;font-weight:700;width:100%;cursor:pointer;text-decoration:none;display:block;text-align:center;margin-top:10px;box-shadow:0 6px 20px rgba(255,30,60,.25)}
+.alt{background:transparent!important;border:1px solid var(--red2)!important;box-shadow:none!important}.green{background:var(--green)!important;box-shadow:none!important}
+input,select{width:100%;background:#0a0a0e;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px;font-size:15px;margin:6px 0 10px;font-family:inherit}
+input:focus{outline:none;border-color:var(--red)}
+label{font-size:13px;color:var(--mute)}.hide{display:none}
+pre{white-space:pre-wrap;font-family:inherit;line-height:1.7;color:#d8d8e0}
+.err{color:#ff6b6b;margin-top:8px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}.row:last-of-type{border:0}.row span{color:var(--mute)}.row b{text-align:right;word-break:break-word}
+.warn{font-size:13px;color:var(--mute);margin-top:10px;line-height:1.5}
+textarea{width:100%;background:#0a0a0e;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px;font-size:13px;margin-top:6px}
+/* loader */
+#loader{position:fixed;inset:0;z-index:99;background:radial-gradient(600px 400px at 50% 40%,#3a0610,#050507 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
+#loader .logo{font-size:52px;animation:pulse 1.4s infinite}
+#loader p{color:var(--mute);margin-top:10px;font-size:13px;letter-spacing:3px}
+.bar{width:220px;height:4px;background:#1c1c24;border-radius:9px;margin-top:26px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red2),var(--red));box-shadow:0 0 12px var(--red);animation:load 1.9s ease-out forwards}
+@keyframes load{to{width:100%}}@keyframes pulse{50%{text-shadow:0 0 30px rgba(255,30,60,.9)}}
+</style></head>
+<body>
+<div id="loader"><div class="logo">DMX <b>FF</b></div><p>LOADING</p><div class="bar"><i></i></div></div>
+<div class="wrap" id="app"></div>
+
+<script>
+/* ============ EDIT THIS PART ============ */
+const CONFIG = {
+  storeName: "DMX FF",
+  whatsapp: "917306013612",     // order + support number
+  upiId: "",                    // put your UPI ID here e.g. name@upi (blank = no UPI button)
+  upiName: "DMX FF"
+};
+// type: "sensi" or "panel". video = Google Drive share link for the sample (optional).
+// device: "android" | "ios" | "both". vault is made from #/tools (encrypted link + key).
+const ITEMS = [
+ {
+  "id": "Zx ANDROID PREMIUM SENSI",
+  "type": "sensi",
+  "name": "𝗭𝘅 𝗔𝗡𝗗𝗥𝗢𝗜𝗗 𝗣𝗥𝗘𝗠𝗜𝗨𝗠 𝗦𝗘𝗡𝗦𝗜 ⚙️",
+  "price": 60,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "3LNUdVYXdQIAlwZzFUTSjA==",
+    "i": "qjGIAiz8JGA8DgvE",
+    "c": "4p75Y450l7Dkz2P7NqsOu3jxGE8yNAkdhGKtviTrc9vnTDpRmxWXbDhWRNCjSXPSCt4zZWuHuKjYCu3yKh2Ws3aIeB0fQ/mGDNtyGxDWY1bid3Jo8klGEHFuBrh0BSacEuSE9HAcPPCZWxr0d+6I3TckizHoVC84P9geo2sD+Skgtgxf9JfXx2WSUiGyVN8="
+   }
+  ]
+ },
+ {
+  "id": "tobi",
+  "type": "sensi",
+  "name": "TOBI ANDROID E IPHON",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "oZ51kGnxHpA865wLrSkTow==",
+    "i": "TSIW0/+DEOXyj4+x",
+    "c": "M+Lmfo2HU4cKF8iN0g80B/3AW07Ii0dabO/GWh7X8yvIaKsXuh4lrzu2SF1+cPlZB17/0gONqofmeDZQSS6yJ9aAbTRLaMrPzv/nE4UZrPlKQs+hibxwgL7UUtRZoU0Kl9adMvaGGBl86+TGt9Xaxzi+sGisE0IDEjIzjHdAK41ShASzzjI1RNR71gSLDWQz3gwYcAr+ggaoX+kb065yZpJLxKnXO8ZaQlFIEt+sXqVP8Akma+PZ2xOhAWTcwKueyAlrS6VT6YA1JRcCEKwEQQpUIoz+8ZofX88Fogdwqxb0dYddElLoWquzUXK7XBOKnuyij9PgZu5ySBCvwdz2Mte/mkglu3hNp0RgSJb9Z0+6Ty2ddc09JOJhFGFmwwwfpaYYoCvISSiT0TNsCUEd9GavappssSgTxGpK4S07NK93Rr3roaEs4+ysJA=="
+   }
+  ]
+ },
+ {
+  "id": "boneco",
+  "type": "sensi",
+  "name": "Boneco lento",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android & iOS\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "both",
+  "vault": [
+   {
+    "s": "+6qRErEqV8PNX3FLqM0X7g==",
+    "i": "T5WM9TzVED2s+RpW",
+    "c": "JesAUpN0WOnQ/aoQ25D1AydBby9lTLhz/uHpXfldq6/JDHeil18r8TU7rgrVcQDH4J/gW2tOENhNskSi"
+   }
+  ]
+ },
+ {
+  "id": "android",
+  "type": "sensi",
+  "name": "Android Sensi",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "SjixU+ACEalFPWwmvtsSzA==",
+    "i": "pZOlEMiCH5FaVuu+",
+    "c": "npEatYJRFkfnJch7iC5IDKGIEZwGM9SP3v4TH7eeGUE6BWC82m70WFb3wc7z6JOgW1zISAmd/ntnl9UIgGWgzYS2ivpc2/JblQ48M8I8GkonUpEo/e2kJJWH/hqyHRzVeWgwmnMMR3R1Ey4uInIG+uDf42g1lkfq2ksJtFc8E00GqaO3F/Mr8pA5UM5XtnJZ23hkGjc4fcjgtWrZdwJGEmwjaYETTccqvpsi+Gc8bY75FqTPphMYw5y8OdJdl3PL9iB1LvdCFnQqwq+qKkH5o4k7epPVYrBmVihED2L/pQ8SRzXqQ0JrNY8ptb964FD9+/vENpWgs0uhK2Dsd0Ful6mLvKr/VCQ+2XR8BUCCdMs5bOidhwGJzHf0Di1IGfqtKuXIhkpF7hyAbpjzmkoSGJfHxQ=="
+   }
+  ]
+ },
+ {
+  "id": "sadxv3",
+  "type": "sensi",
+  "name": "PACK SADX ANDROID V3",
+  "price": 50,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "Cp+KIfU+/FKs1T4RO1MB0Q==",
+    "i": "SmRF8p8lPAtOCyHO",
+    "c": "mDHTw9WlaexLaXlYPv6Zzgx1rUt05QEgFKIGGhJtZfO/PQacuEuwzTEX7V4aA9792CeYnwx7VguBKadqAMF3SkrhDqU14HgXxVaCXoBcBUWYFcKWKhUDBYcTIW19HB7iu3ySBX7rOknR3+Arj/CPxtKNAuGJKuqbyfFm8bLyyOrULFZSLvxSmXh2BmxiiigmhTkM1YwuOe9GdaTgZVbtmHt1Nve6KWQTRwjmz1S58wpCNOLNuw=="
+   }
+  ]
+ },
+ {
+  "id": "sadx",
+  "type": "sensi",
+  "name": "PACK SADX ANDROID",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "FNZ98T52VYRBppidBHkfCw==",
+    "i": "FGqTnWwjWv8c+/hv",
+    "c": "phBFc4FRCEaX0ZeUFzGtl1QbS4Oct16pHjQNsSvo9ek60vVpJKfhBD9bmYO4LGFMtWLvJL9OBLfKlx9/Jio6pmDLzk2IIbkdpLryvRCJP5P+tw/0+NMooOqQyZ5+EVAy7qPfPiBYZYu1+nD6Otqa/kMPU1GdRLU2M4zpKkIoiwM582dY+h0u3uR9qmfgfP9QVl8sXQH3H3EqVmwkFWM="
+   }
+  ]
+ },
+ {
+  "id": "edicao",
+  "type": "sensi",
+  "name": "PACK EDIÇÃO SADX",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "fnGREuXZptqABFIztf202g==",
+    "i": "mu2dF8EcjgYhrW5P",
+    "c": "kAqCIYFN3h7rCI026RQF4jYameEOA+7fS22POxAOz6Waw7TrmZt08f+qZn1U3J2IPOKREo5sN3pp1A1hQFY3aNDMYk7YWCCH+6pTldX7peKBj+KZakVmEBYwjkXctSudZSROxOgsq8FRNMG+9TJl9Cr4cj3SBWQ1PM0DLPX+f4OHslmXREtkrgMklZSaS/JAj/kQejlr8M7PMA=="
+   }
+  ]
+ },
+ {
+  "id": "s8",
+  "type": "sensi",
+  "name": "Sensi 8",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "NxQDQJAsdOecHKa4mXOIyA==",
+    "i": "B/Buqcz2akOMDYDj",
+    "c": "EM47zeYtYLye0ZCyyeiKWvyp5M6disgck+iugDJt2QRAWFY38FeOy8dzxz1Bdh1bi6sE7sHxSw/t+LyXz9O7"
+   }
+  ]
+ },
+ {
+  "id": "s9",
+  "type": "sensi",
+  "name": "Sensi 9",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "wx81egwOTAXYIqQ5KTM79Q==",
+    "i": "E91+ulVwsNVi4NGC",
+    "c": "39ulJI6hOa+/X7cxWYm8XIel5GBKUXQaUFLhYTGKKJVrQtYk0fxd8koQC3p6887y7AWM1hbQop1/WLXj21pn"
+   }
+  ]
+ }
+];
+/* ========================================= */
+
+const $app = document.getElementById('app');
+const enc = new TextEncoder(), dec = new TextDecoder();
+const b64 = b => btoa(String.fromCharCode(...new Uint8Array(b)));
+const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const devName = d => d==='ios'?'iOS':d==='both'?'Android & iOS':'Android';
+
+async function deriveKey(key, salt){
+  const base = await crypto.subtle.importKey('raw', enc.encode(key), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:100000, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, false, ['encrypt','decrypt']);
+}
+async function seal(key, obj){
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const k = await deriveKey(key, salt);
+  const ct = await crypto.subtle.encrypt({name:'AES-GCM', iv}, k, enc.encode(JSON.stringify(obj)));
+  return {s:b64(salt), i:b64(iv), c:b64(ct)};
+}
+async function open(key, v){
+  try{
+    const k = await deriveKey(key, unb64(v.s));
+    return JSON.parse(dec.decode(await crypto.subtle.decrypt({name:'AES-GCM', iv:unb64(v.i)}, k, unb64(v.c))));
+  }catch(e){ return null; }
+}
+function preview(url){
+  const m = (url||'').match(/\/d\/([^/]+)/) || (url||'').match(/[?&]id=([^&]+)/);
+  return m ? `https://drive.google.com/file/d/${m[1]}/preview` : url;
+}
+const supportLink = (t) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(t)}`;
+const header = (left) => `<header>${left}<a class="key" href="#/unlock">🗝️ Unlock key</a></header>`;
+const logoLink = `<a class="logo" href="#/">DMX <b>FF</b></a>`;
+
+function home(){
+  const nS = ITEMS.filter(i=>i.type==='sensi').length, nP = ITEMS.filter(i=>i.type==='panel').length;
+  $app.innerHTML = `${header(logoLink)}
+  <div class="hero"><div class="logo">DMX <b>FF</b></div>
+    <p>Premium Free Fire Sensi &amp; Panels. Choose, pay, get your secure key on WhatsApp and unlock your download instantly.</p></div>
+  <div class="stats">
+    <div class="stat"><b>${nS}</b><span>Sensi</span></div>
+    <div class="stat"><b>${nP}</b><span>Panels</span></div>
+    <div class="stat"><b>1:1</b><span>WhatsApp support</span></div></div>
+  <h2>DASHBOARD</h2>
+  <div class="grid">
+    <a class="big" href="#/list/sensi">🎯 SENSI<small>Premium sensitivity</small></a>
+    <a class="big" href="#/list/panel">🖥️ PANEL<small>Panel plans</small></a>
+    <a class="big" href="#/unlock">🗝️ UNLOCK<small>Enter your key</small></a>
+    <a class="big" href="${supportLink('Hi DMX FF, I need support')}" target="_blank">💬 SUPPORT<small>WhatsApp us</small></a>
+  </div>
+  <h2>ABOUT DMX FF</h2>
+  <div class="card"><pre>DMX FF is your one-stop store for premium Free Fire sensi and panels.
+Every product has a sample, a clear rate and a simple flow.</pre></div>
+  <div class="feat">
+    <div class="card">⚡<b>Fast delivery</b><span>Key sent on WhatsApp after payment</span></div>
+    <div class="card">🔒<b>Secure unlock</b><span>Download opens only with your key</span></div>
+    <div class="card">💳<b>Easy payment</b><span>Pay and send the order in one tap</span></div>
+    <div class="card">🛟<b>Support</b><span>Wrong password? Message our team</span></div>
+  </div>
+  <h2>HOW IT WORKS</h2>
+  <div class="card"><pre>1. Pick a Sensi or Panel
+2. Check details and rate, then pay
+3. Send your order on WhatsApp
+4. Get your key and unlock your download</pre></div>`;
+}
+function list(type){
+  const items = ITEMS.filter(i => i.type === type);
+  $app.innerHTML = `<header><a class="back" href="#/">← Back</a>${`<a class="key" href="#/unlock">🗝️ Unlock key</a>`}</header>
+  <h1>${type==='sensi'?'SENSI':'PANEL'}</h1><p class="sub">Tap one to see details</p>` +
+  (items.length ? items.map(i => `<a class="card item" href="#/item/${i.id}"><div><b>${esc(i.name)}</b><br><small>${devName(i.device)}</small></div><span class="price">₹${i.price}</span></a>`).join('')
+                : '<div class="card"><p class="sub" style="margin:0">Coming soon.</p></div>');
+}
+function item(id){
+  const it = ITEMS.find(i => i.id === id);
+  if(!it) return home();
+  const $ = x => document.getElementById(x);
+  $app.innerHTML = `<header><a class="back" href="#/list/${it.type}">← Back</a><a class="key" href="#/unlock">🗝️ Unlock key</a></header>
+  <h1 style="font-size:19px;line-height:1.4">${esc(it.name)}</h1><span class="chip">${it.type==='sensi'?'Sensi':'Panel'} · ${devName(it.device)}</span>
+  ${it.video?`<div class="video"><iframe src="${esc(preview(it.video))}" allow="autoplay" allowfullscreen></iframe></div>`:''}
+  <button class="alt" id="moreBtn">For more details ▾</button>
+  <div class="card hide" id="more" style="margin-top:10px"><span class="price" style="font-size:18px">Rate: ₹${it.price}</span><pre style="margin-top:12px">${esc(it.details)}</pre></div>
+  <button id="payBtn">Payment ▾</button>
+  <div class="card hide" id="pay" style="margin-top:10px">
+    <label>Your name</label><input id="cname" placeholder="Name">
+    <div class="row"><span>Item</span><b>${esc(it.name)}</b></div>
+    <div class="row"><span>Device</span><b>${devName(it.device)}</b></div>
+    <div class="row"><span>Amount</span><b>₹${it.price}</b></div>
+    ${CONFIG.upiId?`<a class="btn" href="upi://pay?pa=${encodeURIComponent(CONFIG.upiId)}&pn=${encodeURIComponent(CONFIG.upiName)}&am=${it.price}&cu=INR&tn=${encodeURIComponent(it.name)}">Pay with UPI</a><p class="warn">UPI ID: ${esc(CONFIG.upiId)}</p>`:`<p class="warn">Send your order on WhatsApp and we will share the payment details.</p>`}
+    <a class="btn green" id="wa" target="_blank">✅ Send order on WhatsApp</a>
+  </div>`;
+  $('moreBtn').onclick = () => $('more').classList.toggle('hide');
+  $('payBtn').onclick = () => $('pay').classList.toggle('hide');
+  const upd = () => {
+    const msg = `New Order - DMX FF\nType: ${it.type==='sensi'?'Sensi':'Panel'}\nItem: ${it.name}\nDevice: ${devName(it.device)}\nRate: ₹${it.price}\nName: ${$('cname').value||'-'}`;
+    $('wa').href = supportLink(msg);
+  };
+  $('cname').oninput = upd; upd();
+}
+function unlock(){
+  $app.innerHTML = `<header><a class="back" href="#/">← Home</a></header>
+  <h1>UNLOCK KEY 🗝️</h1><p class="sub">Enter the key you got on WhatsApp after payment</p>
+  <div class="card" id="form"><input id="key" placeholder="Enter key" autocomplete="off" inputmode="numeric" style="letter-spacing:3px;font-size:18px">
+    <button id="go">Unlock</button><p class="err" id="err"></p></div><div id="result"></div>`;
+  const $ = x => document.getElementById(x);
+  const run = async () => {
+    $('err').textContent = ''; const key = $('key').value.trim(); if(!key) return;
+    $('go').textContent = 'Checking...';
+    const hits = [];
+    for(const it of ITEMS) for(const v of (it.vault||[])){ const d = await open(key, v); if(d) hits.push({it, d}); }
+    $('go').textContent = 'Unlock';
+    if(!hits.length){ $('err').textContent = 'Invalid key. Message our support team if you need help.'; return; }
+    $('form').classList.add('hide');
+    $('result').innerHTML = hits.map(({it,d}) => `<div class="card">
+      <div class="row"><span>Name</span><b>${esc(it.name)}</b></div>
+      <div class="row"><span>Device</span><b>${devName(d.device)}</b></div>
+      <div class="row"><span>Password for extract zip</span><b>${d.password?esc(d.password):'No password'}</b></div>
+      ${d.url?`<a class="btn green" href="${esc(d.url)}" target="_blank" rel="noopener">⬇ Download</a>`
+            :`<p class="warn">File is not added yet. Please message our support team.</p>`}
+      <p class="warn">If the password is wrong, message our support team.</p>
+      <a class="btn alt" target="_blank" href="${supportLink('Hi DMX FF, I need support with: '+it.name)}">💬 Message support</a>
+    </div>`).join('');
+  };
+  $('go').onclick = run; $('key').onkeydown = e => { if(e.key==='Enter') run(); };
+}
+function tools(){
+  $app.innerHTML = `<header><a class="back" href="#/">Owner tools</a></header>
+  <h1>GENERATE KEY</h1><p class="sub">Encrypts a download link with a key. Paste the output into that item's <b>vault</b> list.</p>
+  <div class="card">
+    <label>Device</label><select id="t_dev"><option value="android">Android</option><option value="ios">iOS</option><option value="both">Both</option></select>
+    <label>Download link</label><input id="t_url" placeholder="https://...">
+    <label>Extract password (optional)</label><input id="t_pw">
+    <label>Secure key</label><input id="t_key" placeholder="e.g. 1234 (blank = auto)">
+    <button id="t_go">Generate</button>
+    <div class="hide" id="t_out"><p class="warn">Key for customer:</p><div class="row"><b id="t_k"></b></div>
+      <p class="warn">Paste inside vault:[ ] of the item (comma between if more):</p><textarea id="t_v" rows="4" readonly></textarea></div>
+  </div>`;
+  const $ = x => document.getElementById(x);
+  $('t_go').onclick = async () => {
+    const url = $('t_url').value.trim(); if(!url) return;
+    const key = $('t_key').value.trim() || Array.from(crypto.getRandomValues(new Uint8Array(4))).map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();
+    const v = await seal(key, {device:$('t_dev').value, url, password:$('t_pw').value});
+    $('t_out').classList.remove('hide'); $('t_k').textContent = key; $('t_v').value = JSON.stringify(v);
+  };
+}
+function route(){
+  const [, a, b] = location.hash.split('/');
+  if(a==='list') list(b); else if(a==='item') item(b); else if(a==='unlock') unlock(); else if(a==='tools') tools(); else home();
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange', route); route();
+setTimeout(()=>{const l=document.getElementById('loader');l.style.opacity=0;setTimeout(()=>l.remove(),500)}, 2000);
+</script></body></html>
