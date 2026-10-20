@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0c">
+<title>DMX FF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07070a;--bg2:#0e0e13;--card:#13131a;--line:#2a1216;--red:#ff1e3c;--red2:#b3001b;--text:#f4f4f7;--mute:#9a9aa8;--green:#1fa855}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:radial-gradient(900px 500px at 50% -120px,#3a0610 0,transparent 70%),var(--bg);color:var(--text);font-family:Poppins,system-ui,sans-serif;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:16px 16px 70px}
+.logo{font-family:Bangers,Impact,sans-serif;font-weight:900;letter-spacing:2px}
+.logo b{color:var(--red);text-shadow:0 0 14px rgba(255,30,60,.7)}
+header{display:flex;align-items:center;justify-content:space-between;padding:6px 0 18px}
+header .logo{font-size:20px;color:var(--text);text-decoration:none}
+header a.key{font-size:13px;color:#fff;text-decoration:none;border:1px solid var(--red2);padding:8px 12px;border-radius:999px;background:rgba(255,30,60,.1)}
+.back{color:var(--text);text-decoration:none;font-weight:600}
+h1{font-family:Bangers,Impact,sans-serif;font-size:24px;margin:4px 0 6px}
+h2{font-family:Bangers,Impact,sans-serif;font-size:15px;letter-spacing:1px;margin:22px 0 10px;color:var(--red)}
+.sub{color:var(--mute);margin-bottom:18px;line-height:1.5}
+.hero{position:relative;overflow:hidden;border:1px solid var(--red2);border-radius:22px;padding:26px 20px;background:linear-gradient(135deg,#240308,#0c0c10 60%);box-shadow:0 0 40px rgba(255,30,60,.15)}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(255,30,60,.35),transparent 65%)}
+.hero .logo{font-size:38px}.hero p{color:var(--mute);margin-top:8px;line-height:1.5;position:relative;z-index:1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center}
+.stat b{display:block;font-family:Bangers,Impact,sans-serif;font-size:20px;color:var(--red)}.stat span{font-size:11px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.big{background:linear-gradient(160deg,#1b0a0e,var(--card));border:1px solid var(--line);border-radius:18px;padding:26px 10px;text-align:center;text-decoration:none;color:var(--text);font-family:Bangers,Impact,sans-serif;font-weight:800;font-size:17px;transition:.15s}
+.big:active,.big:hover{border-color:var(--red);box-shadow:0 0 22px rgba(255,30,60,.25)}
+.big small{display:block;font-family:Poppins;font-weight:400;color:var(--mute);font-size:12px;margin-top:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:10px}.feat .card{margin:0;font-size:14px}.feat .card b{display:block;margin:4px 0 2px}.feat .card span{color:var(--mute);font-size:12px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.item b{font-size:15px;line-height:1.35}.item small{color:var(--mute)}
+.price{color:#fff;background:linear-gradient(135deg,var(--red),var(--red2));padding:6px 12px;border-radius:999px;font-weight:700;white-space:nowrap}
+.chip{display:inline-block;font-size:12px;border:1px solid var(--red2);color:#ffb3bd;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.video{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;margin-bottom:14px;border:1px solid var(--line)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+button,.btn{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border:0;border-radius:12px;padding:14px 18px;font-size:16px;font-weight:700;width:100%;cursor:pointer;text-decoration:none;display:block;text-align:center;margin-top:10px;box-shadow:0 6px 20px rgba(255,30,60,.25)}
+.alt{background:transparent!important;border:1px solid var(--red2)!important;box-shadow:none!important}.green{background:var(--green)!important;box-shadow:none!important}
+input,select{width:100%;background:#0a0a0e;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px;font-size:15px;margin:6px 0 10px;font-family:inherit}
+input:focus{outline:none;border-color:var(--red)}
+label{font-size:13px;color:var(--mute)}.hide{display:none}
+pre{white-space:pre-wrap;font-family:inherit;line-height:1.7;color:#d8d8e0}
+.err{color:#ff6b6b;margin-top:8px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}.row:last-of-type{border:0}.row span{color:var(--mute)}.row b{text-align:right;word-break:break-word}
+.warn{font-size:13px;color:var(--mute);margin-top:10px;line-height:1.5}
+textarea{width:100%;background:#0a0a0e;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px;font-size:13px;margin-top:6px}
+.iname{font-family:Rajdhani,Bangers,Impact,sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;line-height:1.25}
+h1.iname{font-size:27px;margin:2px 0 8px;background:linear-gradient(90deg,#fff,#ff6b80);-webkit-background-clip:text;background-clip:text;color:transparent}
+.item b.iname{font-size:18px}
+.steps{display:flex;align-items:center;gap:6px;margin:2px 0 18px}
+.steps i{flex:1;height:4px;border-radius:9px;background:#22222c}.steps i.on{background:linear-gradient(90deg,var(--red2),var(--red));box-shadow:0 0 10px rgba(255,30,60,.6)}
+.steplbl{display:flex;justify-content:space-between;font-size:11px;color:var(--mute);margin:-12px 0 16px;letter-spacing:.5px}.steplbl b{color:var(--red)}
+.amount{text-align:center;padding:22px 12px;border:1px solid var(--red2);border-radius:20px;background:radial-gradient(circle at 50% 0,#3a0610,#10070a 70%);box-shadow:0 0 40px rgba(255,30,60,.18);margin-bottom:14px}
+.amount small{color:var(--mute);letter-spacing:3px;font-size:11px}
+.amount .amt{font-family:Bangers,Impact,sans-serif;font-weight:900;font-size:50px;margin:6px 0;color:#fff;text-shadow:0 0 24px rgba(255,30,60,.75)}
+.amount .for{font-family:Poppins,sans-serif;font-weight:600;font-size:16px;color:#ffb3bd;letter-spacing:1px;text-transform:uppercase}
+.qrbox{background:#fff;border-radius:18px;padding:14px;width:230px;margin:6px auto 12px;box-shadow:0 0 0 3px var(--red2),0 0 34px rgba(255,30,60,.35)}
+.qrbox svg{display:block;width:100%;height:auto}
+.upiid{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0a0a0e;border:1px dashed var(--red2);border-radius:12px;padding:12px 14px;margin:10px 0}
+.upiid b{font-family:Bangers,Impact,sans-serif;font-size:14px;word-break:break-all}.upiid button{width:auto;margin:0;padding:8px 14px;font-size:13px}
+.apps{text-align:center;color:var(--mute);font-size:12px;margin-top:8px}
+.banner{background:rgba(31,168,85,.12);border:1px solid #1fa855;border-radius:14px;padding:14px;margin-bottom:16px;line-height:1.5;font-size:14px}
+.steps{display:flex;gap:6px;margin:4px 0 18px}.steps i{flex:1;text-align:center;font-style:normal;font-size:11px;color:var(--mute);padding-top:8px;border-top:3px solid #24242c}
+.steps i.on{color:#fff;border-color:var(--red);text-shadow:0 0 10px rgba(255,30,60,.6)}
+.title{font-family:Bangers,Impact,sans-serif;font-weight:800;line-height:1.4;letter-spacing:.5px}
+.pay{text-align:center;border:1px solid var(--red2);background:linear-gradient(160deg,#240308,var(--card));box-shadow:0 0 30px rgba(255,30,60,.12)}
+.amt{font-family:Bangers,Impact,sans-serif;font-weight:900;font-size:40px;color:#fff;text-shadow:0 0 18px rgba(255,30,60,.6)}
+.qr{width:210px;height:210px;margin:14px auto;background:#fff;border-radius:16px;padding:8px;box-shadow:0 0 28px rgba(255,30,60,.3)}.qr svg{width:100%;height:100%;display:block}
+.upi{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0a0a0e;border:1px dashed var(--red2);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:14px;text-align:left}
+.upi button{width:auto;margin:0;padding:8px 14px;font-size:13px}
+.ok{color:#4ade80;font-weight:700}
+/* loader */
+#loader{position:fixed;inset:0;z-index:99;background:radial-gradient(600px 400px at 50% 40%,#3a0610,#050507 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
+#loader .logo{font-size:52px;animation:pulse 1.4s infinite}
+#loader p{color:var(--mute);margin-top:10px;font-size:13px;letter-spacing:3px}
+.bar{width:220px;height:4px;background:#1c1c24;border-radius:9px;margin-top:26px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red2),var(--red));box-shadow:0 0 12px var(--red);animation:load 1.9s ease-out forwards}
+@keyframes load{to{width:100%}}@keyframes pulse{50%{text-shadow:0 0 30px rgba(255,30,60,.9)}}
+
+/* ---- premium pass ---- */
+body{background:radial-gradient(800px 460px at 50% -140px,#4a0814 0,transparent 70%),radial-gradient(500px 300px at 100% 40%,rgba(255,30,60,.07),transparent 70%),#06060a}
+header{position:sticky;top:0;z-index:5;margin:-16px -16px 14px;padding:14px 16px;background:rgba(6,6,10,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,30,60,.15)}
+.logo{letter-spacing:3px}
+h1,.title,.iname{letter-spacing:1.5px}
+.card{background:linear-gradient(160deg,#181820,#0f0f15);border:1px solid #2b1318;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.04)}
+.hero{padding:24px 130px 24px 20px;min-height:170px;border-radius:26px;border:1px solid rgba(255,30,60,.55);background:linear-gradient(135deg,#2c040b,#0b0b10 65%);box-shadow:0 0 50px rgba(255,30,60,.18),inset 0 1px 0 rgba(255,255,255,.06)}
+.hero .logo{font-size:44px;line-height:1;text-shadow:0 3px 0 #5a0010}
+.hero p{font-size:13px;margin-top:10px}
+.mascot{position:absolute;right:-6px;bottom:-4px;width:150px;z-index:2;filter:drop-shadow(0 8px 14px rgba(0,0,0,.5));animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-7px) rotate(1.5deg)}}
+#loader .mascot.lm{position:static;width:170px;margin-bottom:6px}
+#loader .logo{font-size:50px}
+.big{border-radius:22px;padding:24px 10px;background:linear-gradient(160deg,#241016,#111117);font-size:20px;letter-spacing:1.5px}
+.big:active{transform:scale(.97)}
+button,.btn{border-radius:14px;letter-spacing:.3px;box-shadow:0 8px 24px rgba(255,30,60,.3),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn.green,button.green{box-shadow:0 8px 24px rgba(31,168,85,.3),inset 0 1px 0 rgba(255,255,255,.25)}
+.amt{font-size:52px;letter-spacing:2px}
+.item{transition:.15s}.item:active{transform:scale(.98);border-color:var(--red)}
+.price{box-shadow:0 4px 14px rgba(255,30,60,.35)}
+.chip{background:rgba(255,30,60,.08)}
+h2{color:#ff4d66;font-size:18px;letter-spacing:2px}
+
+/* ---- shadow + border theme ---- */
+:root{--glow:rgba(255,30,60,.45);--edge:#ff2a48}
+body{background:radial-gradient(700px 420px at 50% -120px,#3d0610 0,transparent 72%),radial-gradient(ellipse at 50% 120%,rgba(255,30,60,.10),transparent 60%),#030305}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 120px 20px rgba(0,0,0,.85);z-index:-1}
+header{border-bottom:2px solid var(--edge);box-shadow:0 6px 24px rgba(255,30,60,.28);background:rgba(3,3,5,.88)}
+header a.key{border:2px solid var(--edge);background:#0a0a0e;box-shadow:0 0 14px var(--glow),inset 0 0 10px rgba(255,30,60,.2)}
+.card,.stat,.big,.hero,.upi,.row.box{background:linear-gradient(160deg,#14141b,#08080c);border:2px solid var(--edge);border-radius:18px;
+  box-shadow:0 0 0 1px #000,0 0 20px var(--glow),0 14px 30px rgba(0,0,0,.7),inset 0 0 26px rgba(255,30,60,.10),inset 0 2px 0 rgba(255,255,255,.06)}
+.hero{box-shadow:0 0 0 1px #000,0 0 34px rgba(255,30,60,.55),0 18px 40px rgba(0,0,0,.8),inset 0 0 40px rgba(255,30,60,.14)}
+.stat{border-radius:16px}
+.big{box-shadow:0 5px 0 #6b0010,0 0 0 1px #000,0 0 20px var(--glow),0 16px 26px rgba(0,0,0,.7),inset 0 0 22px rgba(255,30,60,.10)}
+.big:active{transform:translateY(4px);box-shadow:0 1px 0 #6b0010,0 0 0 1px #000,0 0 26px var(--glow),inset 0 0 22px rgba(255,30,60,.2)}
+button,.btn{border:2px solid #ff6b80;background:linear-gradient(180deg,#ff2f4d,#b3001b);text-shadow:0 2px 0 rgba(0,0,0,.45);
+  box-shadow:0 5px 0 #5d000e,0 0 0 1px #000,0 0 22px var(--glow),0 14px 24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.35)}
+button:active,.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #5d000e,0 0 0 1px #000,0 0 28px var(--glow)}
+button.alt,.btn.alt{background:#0a0a0e!important;border:2px solid var(--edge)!important;box-shadow:0 4px 0 #3a0008,0 0 0 1px #000,0 0 16px rgba(255,30,60,.3)!important}
+button.green,.btn.green{background:linear-gradient(180deg,#2fd06b,#128a45)!important;border:2px solid #6dffa5!important;
+  box-shadow:0 5px 0 #08502a,0 0 0 1px #000,0 0 22px rgba(47,208,107,.45),0 14px 24px rgba(0,0,0,.6)!important}
+input,select{background:#050508;border:2px solid #3a1118;border-radius:12px;box-shadow:inset 0 3px 10px rgba(0,0,0,.8)}
+input:focus,select:focus{border-color:var(--edge);box-shadow:inset 0 3px 10px rgba(0,0,0,.8),0 0 0 3px rgba(255,30,60,.25),0 0 18px var(--glow)}
+.qr{border:3px solid var(--edge);box-shadow:0 0 0 1px #000,0 0 30px var(--glow),0 10px 24px rgba(0,0,0,.7)}
+.pay{box-shadow:0 0 0 1px #000,0 0 30px rgba(255,30,60,.5),0 16px 34px rgba(0,0,0,.75),inset 0 0 36px rgba(255,30,60,.12)}
+.upi{border:2px dashed var(--edge);border-radius:14px}
+.chip{border:2px solid var(--edge);box-shadow:0 0 12px rgba(255,30,60,.3);color:#ffd0d6}
+.price{border:2px solid #ff6b80;box-shadow:0 3px 0 #5d000e,0 0 14px var(--glow)}
+.steps i{border-top-width:4px;border-radius:4px}.steps i.on{box-shadow:0 -6px 14px -6px var(--edge)}
+.video{border:2px solid var(--edge);box-shadow:0 0 26px var(--glow),0 14px 30px rgba(0,0,0,.7)}
+.logo b{text-shadow:0 0 18px rgba(255,30,60,.9),0 3px 0 #5a0010}
+h1,.amt,.hero .logo,#loader .logo{text-shadow:0 2px 0 #5a0010,0 0 20px rgba(255,30,60,.5)}
+h2{text-shadow:0 0 14px rgba(255,30,60,.6)}
+.mascot{filter:drop-shadow(0 0 14px rgba(255,30,60,.55)) drop-shadow(0 10px 12px rgba(0,0,0,.8))}
+.row{border-bottom:1px solid #2a0c12}
+h1.iname{text-shadow:none;filter:drop-shadow(0 2px 0 #5a0010) drop-shadow(0 0 10px rgba(255,30,60,.45))}
+.bar{border:1px solid var(--edge);box-shadow:0 0 14px var(--glow);height:8px}
+</style></head>
+<body>
+<div id="loader"><svg class="mascot lm" viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs><radialGradient id="mg2" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#ff1e3c" stop-opacity=".55"/><stop offset="1" stop-color="#ff1e3c" stop-opacity="0"/></radialGradient>
+<linearGradient id="hd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff3b55"/><stop offset="1" stop-color="#b3001b"/></linearGradient></defs>
+<circle cx="100" cy="105" r="98" fill="url(#mg2)"/>
+<path d="M34 210 Q38 146 100 140 Q162 146 166 210Z" fill="url(#hd2)" stroke="#12050a" stroke-width="5" stroke-linejoin="round"/>
+<path d="M84 142 L100 170 L116 142" fill="#12050a"/><path d="M88 170 v26 M112 170 v26" stroke="#ffd9d9" stroke-width="3" stroke-linecap="round"/>
+<circle cx="100" cy="92" r="58" fill="#1a0a0e" stroke="#12050a" stroke-width="5"/>
+<ellipse cx="100" cy="98" rx="42" ry="40" fill="#ffd8b5" stroke="#12050a" stroke-width="5"/>
+<path d="M50 92 Q48 34 100 32 Q152 34 150 92 Q146 62 100 58 Q54 62 50 92Z" fill="url(#hd2)" stroke="#12050a" stroke-width="5" stroke-linejoin="round"/>
+<path d="M62 70 Q100 52 138 70" fill="none" stroke="#12050a" stroke-width="5" stroke-linecap="round"/>
+<path d="M54 90 Q100 8 146 90" fill="none" stroke="#1c1c24" stroke-width="9" stroke-linecap="round"/>
+<path d="M54 90 Q100 8 146 90" fill="none" stroke="#ff1e3c" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 9"/>
+<rect x="40" y="84" width="19" height="34" rx="8" fill="#1c1c24" stroke="#12050a" stroke-width="4"/><rect x="141" y="84" width="19" height="34" rx="8" fill="#1c1c24" stroke="#12050a" stroke-width="4"/>
+<rect x="45" y="93" width="8" height="16" rx="4" fill="#ff1e3c"/><rect x="147" y="93" width="8" height="16" rx="4" fill="#ff1e3c"/>
+<ellipse cx="83" cy="100" rx="10" ry="12.5" fill="#fff" stroke="#12050a" stroke-width="3.5"/><ellipse cx="117" cy="100" rx="10" ry="12.5" fill="#fff" stroke="#12050a" stroke-width="3.5"/>
+<circle cx="86" cy="102" r="6.2" fill="#12050a"/><circle cx="114" cy="102" r="6.2" fill="#12050a"/><circle cx="88" cy="99" r="2.2" fill="#fff"/><circle cx="116" cy="99" r="2.2" fill="#fff"/>
+<path d="M70 82 L94 88" stroke="#12050a" stroke-width="5" stroke-linecap="round"/><path d="M130 82 L106 88" stroke="#12050a" stroke-width="5" stroke-linecap="round"/>
+<circle cx="68" cy="118" r="6" fill="#ff8aa0" opacity=".7"/><circle cx="132" cy="118" r="6" fill="#ff8aa0" opacity=".7"/>
+<path d="M84 121 Q100 138 118 118" fill="#fff" stroke="#12050a" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M92 126 Q100 131 110 124" fill="none" stroke="#ff6b80" stroke-width="3" stroke-linecap="round"/>
+<g transform="rotate(-14 160 168)"><rect x="140" y="140" width="40" height="64" rx="8" fill="#0a0a0e" stroke="#ffffff" stroke-width="3"/><rect x="145" y="147" width="30" height="46" rx="4" fill="#ff1e3c"/><text x="160" y="176" text-anchor="middle" font-size="15" font-family="Bangers,Impact,sans-serif" fill="#fff">DMX</text></g>
+<circle cx="146" cy="186" r="11" fill="#ffd8b5" stroke="#12050a" stroke-width="4"/>
+<path d="M22 46 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z" fill="#fff" opacity=".9"/><path d="M178 30 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#ff1e3c"/>
+</svg><div class="logo">DMX <b>FF</b></div><p>LOADING</p><div class="bar"><i></i></div></div>
+<div class="wrap" id="app"></div>
+
+<script>
+/* ============ EDIT THIS PART ============ */
+const CONFIG = {
+  storeName: "DMX FF",
+  whatsapp: "917306013612",     // order + support number
+  upiId: "7593965592@fam",      // UPI ID for payment + QR
+  upiName: "DMX FF"
+};
+// type: "sensi" or "panel". video = Google Drive share link for the sample (optional).
+// device: "android" | "ios" | "both". vault is made from #/tools (encrypted link + key).
+const ITEMS = [
+ {
+  "id": "zx",
+  "type": "sensi",
+  "name": "ZX ANDROID PREMIUM SENSI ⚙️",
+  "price": 60,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "9j4FYdqO2DQi1kta1ALHFA==",
+    "i": "2fZcLMY+rXQY9SZ8",
+    "c": "iCEmsLMMAwv74+IEAL1827NC1POM/Xw8L7CuaQIzgz9QwCLcAD3eW0vyytYWkGeA+lW33NuULz9S+ZO9sDTzq/TFEPHUiO7TJ4AIcIzHVokCyggZ2XphmfmogmuTqGChtD+bao9hHBDOiiKaTGh502vXPPLas2b9mqsbvHbag1Ffciv7kRYQINI306x8btU="
+   }
+  ]
+ },
+ {
+  "id": "tobi",
+  "type": "sensi",
+  "name": "TOBI ANDROID E IPHON",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "dur0EuRQ6b5YWBl8xW/ycQ==",
+    "i": "+VtKPf47Mnl9dtRm",
+    "c": "j4GSNA+NmdcjyHuQnrNDexexTXm/fgB2q+9j2FdVQQZXLJu659TOIEFCo6piKy4QPnSn0G6zdUqq0NWyAevcApUKlyzFIbN4PqqMR+VYsh+Sfs2cFaB8zsQ46tbfALFa76l3+qSbWJQpBX0cZ88iA2eG5zXmGYEq+QIYISgvBQ09gU2uod+ro7t2og7s19LRONqdoN65Nli3/pzZ/HFNMR5b5HA5/PardKM+wZl2FUJ9qqaMAMKPDhvUNYtkO2kLcvJpDDJoIj1MqmUpFn1wh3rSVYj8NliyznE7WHw6tBy1CVadbiE2vmPZ4ZYgjHhFeErtXVmo/NKybzC1oXmFU3QkgLPHA51zr+xbtA0vzVF/zDhh4ilEdX8YdHVT2GkgXs5WeDuXkoTdFbw+l+36qcoINvkelp4JRtvUJuK9xUTXeG6ZdXdY/SmeIg=="
+   }
+  ]
+ },
+ {
+  "id": "boneco",
+  "type": "sensi",
+  "name": "Boneco lento",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android & iOS\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "both",
+  "vault": [
+   {
+    "s": "4msRdgaGxWEpSrN8HtQueg==",
+    "i": "Crd9YRhxxc9SvU3G",
+    "c": "/RkuZItV4/bTDZPi8Kl+MuRDFOW+7of9ELMM6sIhJQOj5aCx2J6/UCbXIDMGhpgNvHaJZHC75aX4p8xo"
+   }
+  ]
+ },
+ {
+  "id": "android",
+  "type": "sensi",
+  "name": "Android Sensi",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "OFX0+cTg9KSTSj6hw2nXGA==",
+    "i": "SdfEPc5x2zt6dw+N",
+    "c": "AYtbiiPIjuCcdupW1OcW+H6gXw0ADOPn6QxoZXxh0rsDZnKMQRDbaKlQ1oLmAH3NP6HFtVCmP1x/Q+ReC3nMkzVf6R+YRLDuiMNaY+2Gw14zpBEgBm3zbbIck5ch0kL6DcISPVznC+kfDfyt4O/4/MYy2o1iAQ9ey7fqrO67gH4Y2GQ5Cvpvlv9ZSz3HNkPGYBZk519ta/fIH0CYAr3jOa2YxgTS9yGOvOn2bNkjTiaamjixkeE6juGuE1KKaSrHkAQQx+EwPLfvuO9NkOea5LnOpGcZHEjMKfCdbTGilrDfz7rBFKm9yK/TcamfNadew4F29GX7+WElfEg1yLo5IFmyt6BpUX3G78/OA45F++BJEAjL/ihaD6wRrz1mPtzmP4nB7YxAgD8SncX4PcP+8WRuMg=="
+   }
+  ]
+ },
+ {
+  "id": "sadxv3",
+  "type": "sensi",
+  "name": "PACK SADX ANDROID V3",
+  "price": 50,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "8DoY3yeQyXD1ZOscpsYWlA==",
+    "i": "vDCxglX6jAR9VlGu",
+    "c": "HMnDjEtRTOrmLsK9U6nEcXAWe817V15u+esJOtRoA/Ih2AJHn1vmOos7dikcy7fOlEbEYHUhv+guep9Ors48mK/2+2JmQOkxLFt0j/avhjxpgoJlxGo7izqM0kitEL8VGrJEjZBErmbOaY6X1Gs3qRtZz9kKQUk7iteMPWie8F2QDhLNQH+dWme00lhHTyiVvi1SUmWdWucblHy0jQFq0xcBbPBmTGtM8WaQok3N7Ll9uz0XrQ=="
+   }
+  ]
+ },
+ {
+  "id": "sadx",
+  "type": "sensi",
+  "name": "PACK SADX ANDROID",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "FlHFBsB6hyJnqAdA0oGJvQ==",
+    "i": "oEbREu8RnKbg3Iwo",
+    "c": "ad8dMCb+jdIPhJWEoaZGJwkqyvhqIuRj/+XDPSyvFdCbaueHEVonCPu+HvzjYlVmoX8IFSgptC763KPY1NBqB/lUNqElnUAlun0RLv792di3IJGMzwUtdM6mHdgPERX1zS8j1k54f+zeaAfUeTX2G4hh0C+cYJSKjhi0Bjn1+Iam1NR5ctbwx+GkdcTveP0OLA4YJD65rlBo9a6YTRA="
+   }
+  ]
+ },
+ {
+  "id": "edicao",
+  "type": "sensi",
+  "name": "PACK EDIÇÃO SADX",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "x/3CZaqTbazlihU5JXZaTA==",
+    "i": "sJmOOvCHQHEir6Bb",
+    "c": "MwgwyQi2N0ps7Nf2CZ4qoSjJEBv/9CM2ejDX4JwDlWjy3sqS3SpJGWPjeiw+6QVInLLCCAkuxFI4qDjb/r6dBy8J3tKlSOP+pi1P1//JNJbvVdPmdodACOSCVanVAYn/cuSMrg7lh02DEa6jNSGSW954K7MTMKKEaQeQM9hjUE+Az+DUPxBP6rJTZRNyFM0/sjKUgiIBgiQdog=="
+   }
+  ]
+ },
+ {
+  "id": "s8",
+  "type": "sensi",
+  "name": "Sensi 8",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "Ugt8+7r3s5pJc1OKnsmo8A==",
+    "i": "t5WfftRtIou7lU/y",
+    "c": "y5OD+JljuHja3cQE9lpoZTyJdJh3cb0rOK9WUMIoinMmhWTWGdrU0my3WOW+geUrV7WnvLMcnUCPMMG69eWC"
+   }
+  ]
+ },
+ {
+  "id": "s9",
+  "type": "sensi",
+  "name": "Sensi 9",
+  "price": 30,
+  "video": "",
+  "details": "Premium sensi for Android\nDelivered with a secure unlock key\nIf the extract password is wrong, message our support team",
+  "device": "android",
+  "vault": [
+   {
+    "s": "t8pabR2TO7NxH5XLzE/1gA==",
+    "i": "LWkLcjhnuV70/nZ2",
+    "c": "2LnPF0rBYd8Tre+/kV0AkFgDym8H9Tc2WrlQi1j5EeVLyoSK8ZSuAQnClNDixWC/9ZhNLrXgLCLDL19Lxj67"
+   }
+  ]
+ }
+];
+/* ========================================= */
+
+const $app = document.getElementById('app');
+const enc = new TextEncoder(), dec = new TextDecoder();
+const b64 = b => btoa(String.fromCharCode(...new Uint8Array(b)));
+const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const devName = d => d==='ios'?'iOS':d==='both'?'Android & iOS':'Android';
+
+async function deriveKey(key, salt){
+  const base = await crypto.subtle.importKey('raw', enc.encode(key), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:100000, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, false, ['encrypt','decrypt']);
+}
+async function seal(key, obj){
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const k = await deriveKey(key, salt);
+  const ct = await crypto.subtle.encrypt({name:'AES-GCM', iv}, k, enc.encode(JSON.stringify(obj)));
+  return {s:b64(salt), i:b64(iv), c:b64(ct)};
+}
+async function unseal(key, v){
+  try{
+    const k = await deriveKey(key, unb64(v.s));
+    return JSON.parse(dec.decode(await crypto.subtle.decrypt({name:'AES-GCM', iv:unb64(v.i)}, k, unb64(v.c))));
+  }catch(e){ return null; }
+}
+function preview(url){
+  const m = (url||'').match(/\/d\/([^/]+)/) || (url||'').match(/[?&]id=([^&]+)/);
+  return m ? `https://drive.google.com/file/d/${m[1]}/preview` : url;
+}
+/* Minimal QR encoder (byte mode, ECC level M, versions 1-10) -> SVG string */
+function makeQR(text){
+  const data=Array.from(new TextEncoder().encode(text));
+  const ECC=[10,16,26,18,24,16,18,22,22,26], BLK=[1,1,1,2,2,4,4,4,5,5];
+  const raw=v=>{let r=(16*v+128)*v+64;if(v>=2){const n=Math.floor(v/7)+2;r-=(25*n-10)*n-55;if(v>=7)r-=36}return r};
+  let ver=0,cap=0;
+  for(let v=1;v<=10;v++){cap=Math.floor(raw(v)/8)-ECC[v-1]*BLK[v-1];if(4+(v<10?8:16)+8*data.length<=cap*8){ver=v;break}}
+  if(!ver)throw new Error('QR text too long');
+  const bits=[];const put=(val,n)=>{for(let i=n-1;i>=0;i--)bits.push((val>>>i)&1)};
+  put(4,4);put(data.length,ver<10?8:16);data.forEach(b=>put(b,8));
+  put(0,Math.min(4,cap*8-bits.length));while(bits.length%8)bits.push(0);
+  for(let p=0xEC;bits.length<cap*8;p^=0xEC^0x11)put(p,8);
+  const cw=[];for(let i=0;i<bits.length;i+=8)cw.push(parseInt(bits.slice(i,i+8).join(''),2));
+  const mul=(x,y)=>{let z=0;for(let i=7;i>=0;i--){z=(z<<1)^((z>>>7)*0x11D);z^=((y>>>i)&1)*x}return z&255};
+  const eccLen=ECC[ver-1],nb=BLK[ver-1];
+  const div=Array(eccLen).fill(0);div[eccLen-1]=1;let root=1;
+  for(let i=0;i<eccLen;i++){for(let j=0;j<eccLen;j++){div[j]=mul(div[j],root);if(j+1<eccLen)div[j]^=div[j+1]}root=mul(root,2)}
+  const rem=d=>{const r=Array(eccLen).fill(0);for(const b of d){const f=b^r.shift();r.push(0);div.forEach((c,i)=>r[i]^=mul(c,f))}return r};
+  const rawCw=Math.floor(raw(ver)/8),nShort=nb-rawCw%nb,shortLen=Math.floor(rawCw/nb);
+  const blocks=[];for(let i=0,k=0;i<nb;i++){const d=cw.slice(k,k+shortLen-eccLen+(i<nShort?0:1));k+=d.length;const e=rem(d);if(i<nShort)d.push(0);blocks.push(d.concat(e))}
+  const all=[];for(let i=0;i<blocks[0].length;i++)blocks.forEach((b,j)=>{if(i!==shortLen-eccLen||j>=nShort)all.push(b[i])});
+  const size=ver*4+17;let M=[];const F=[];for(let i=0;i<size;i++){M.push(Array(size).fill(false));F.push(Array(size).fill(false))}
+  const set=(x,y,d)=>{if(x>=0&&x<size&&y>=0&&y<size){M[y][x]=d;F[y][x]=true}};
+  for(let i=0;i<size;i++){set(6,i,i%2===0);set(i,6,i%2===0)}
+  const finder=(cx,cy)=>{for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){const d=Math.max(Math.abs(dx),Math.abs(dy));set(cx+dx,cy+dy,d!==2&&d!==4)}};
+  finder(3,3);finder(size-4,3);finder(3,size-4);
+  if(ver>1){const n=Math.floor(ver/7)+2,step=Math.floor((ver*8+n*3+5)/(n*4-4))*2,pos=[6];for(let p=size-7;pos.length<n;p-=step)pos.splice(1,0,p);
+    for(let a=0;a<n;a++)for(let b=0;b<n;b++){if((a===0&&b===0)||(a===0&&b===n-1)||(a===n-1&&b===0))continue;
+      for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)set(pos[a]+dx,pos[b]+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1)}}
+  const fmt=(mask)=>{const d=(0<<3)|mask;let r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);const b=((d<<10)|r)^0x5412,g=i=>((b>>>i)&1)!==0;
+    for(let i=0;i<=5;i++)set(8,i,g(i));set(8,7,g(6));set(8,8,g(7));set(7,8,g(8));for(let i=9;i<15;i++)set(14-i,8,g(i));
+    for(let i=0;i<8;i++)set(size-1-i,8,g(i));for(let i=8;i<15;i++)set(8,size-15+i,g(i));set(8,size-8,true)};
+  fmt(0);
+  if(ver>=7){let r=ver;for(let i=0;i<12;i++)r=(r<<1)^((r>>>11)*0x1F25);const b=(ver<<12)|r;for(let i=0;i<18;i++){const c=((b>>>i)&1)!==0,a=size-11+i%3,d=Math.floor(i/3);set(a,d,c);set(d,a,c)}}
+  let i=0;for(let right=size-1;right>=1;right-=2){if(right===6)right=5;for(let v=0;v<size;v++)for(let j=0;j<2;j++){const x=right-j,y=((right+1)&2)===0?size-1-v:v;
+    if(!F[y][x]&&i<all.length*8){M[y][x]=((all[i>>>3]>>>(7-(i&7)))&1)!==0;i++}}}
+  const M0=M.map(r=>r.slice());
+  const MF=[x=>0,(x,y)=>(x+y)%2,(x,y)=>y%2,(x,y)=>x%3,(x,y)=>(x+y)%3,(x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2,(x,y)=>x*y%2+x*y%3,(x,y)=>(x*y%2+x*y%3)%2,(x,y)=>((x+y)%2+x*y%3)%2];
+  const maskOk=[(x,y)=>(x+y)%2===0,(x,y)=>y%2===0,(x,y)=>x%3===0,(x,y)=>(x+y)%3===0,(x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2===0,(x,y)=>x*y%2+x*y%3===0,(x,y)=>(x*y%2+x*y%3)%2===0,(x,y)=>((x+y)%2+x*y%3)%2===0];
+  const pen=()=>{let p=0,dark=0;const A=[1,0,1,1,1,0,1,0,0,0,0],B=A.slice().reverse();
+    for(let y=0;y<size;y++)for(let x=0;x<size;x++)if(M[y][x])dark++;
+    for(let t=0;t<2;t++)for(let a=0;a<size;a++){const line=[];for(let b=0;b<size;b++)line.push(t?M[b][a]:M[a][b]?1:0);const L=line.map(Number);
+      let run=1;for(let b=1;b<size;b++){if(L[b]===L[b-1]){run++;if(run===5)p+=3;else if(run>5)p++}else run=1}
+      for(let b=0;b+11<=size;b++){const w=L.slice(b,b+11);if(w.every((v,k)=>v===A[k])||w.every((v,k)=>v===B[k]))p+=40}}
+    for(let y=0;y<size-1;y++)for(let x=0;x<size-1;x++){const c=M[y][x];if(c===M[y][x+1]&&c===M[y+1][x]&&c===M[y+1][x+1])p+=3}
+    const tot=size*size;p+=(Math.ceil(Math.abs(dark*20-tot*10)/tot)-1)*10;return p};
+  let best=0,bestP=Infinity,bestM=null;
+  for(let m=0;m<8;m++){M=M0.map(r=>r.slice());for(let y=0;y<size;y++)for(let x=0;x<size;x++)if(!F[y][x]&&maskOk[m](x,y))M[y][x]=!M[y][x];
+    fmt(m);const p=pen();if(p<bestP){bestP=p;best=m;bestM=M.map(r=>r.slice())}}
+  M=bestM;
+  const q=4,n=size+q*2;let path='';
+  for(let y=0;y<size;y++)for(let x=0;x<size;x++)if(M[y][x])path+=`M${x+q},${y+q}h1v1h-1z`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><rect width="${n}" height="${n}" fill="#fff"/><path d="${path}" fill="#000"/></svg>`;
+}
+
+const supportLink = (t) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(t)}`;
+const header = (left) => `<header>${left}<a class="key" href="#/unlock">🗝️ Unlock key</a></header>`;
+const logoLink = `<a class="logo" href="#/">DMX <b>FF</b></a>`;
+
+function home(){
+  const nS = ITEMS.filter(i=>i.type==='sensi').length, nP = ITEMS.filter(i=>i.type==='panel').length;
+  $app.innerHTML = `${header(logoLink)}
+  <div class="hero"><svg class="mascot" viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs><radialGradient id="mg" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#ff1e3c" stop-opacity=".55"/><stop offset="1" stop-color="#ff1e3c" stop-opacity="0"/></radialGradient>
+<linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff3b55"/><stop offset="1" stop-color="#b3001b"/></linearGradient></defs>
+<circle cx="100" cy="105" r="98" fill="url(#mg)"/>
+<path d="M34 210 Q38 146 100 140 Q162 146 166 210Z" fill="url(#hd)" stroke="#12050a" stroke-width="5" stroke-linejoin="round"/>
+<path d="M84 142 L100 170 L116 142" fill="#12050a"/><path d="M88 170 v26 M112 170 v26" stroke="#ffd9d9" stroke-width="3" stroke-linecap="round"/>
+<circle cx="100" cy="92" r="58" fill="#1a0a0e" stroke="#12050a" stroke-width="5"/>
+<ellipse cx="100" cy="98" rx="42" ry="40" fill="#ffd8b5" stroke="#12050a" stroke-width="5"/>
+<path d="M50 92 Q48 34 100 32 Q152 34 150 92 Q146 62 100 58 Q54 62 50 92Z" fill="url(#hd)" stroke="#12050a" stroke-width="5" stroke-linejoin="round"/>
+<path d="M62 70 Q100 52 138 70" fill="none" stroke="#12050a" stroke-width="5" stroke-linecap="round"/>
+<path d="M54 90 Q100 8 146 90" fill="none" stroke="#1c1c24" stroke-width="9" stroke-linecap="round"/>
+<path d="M54 90 Q100 8 146 90" fill="none" stroke="#ff1e3c" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 9"/>
+<rect x="40" y="84" width="19" height="34" rx="8" fill="#1c1c24" stroke="#12050a" stroke-width="4"/><rect x="141" y="84" width="19" height="34" rx="8" fill="#1c1c24" stroke="#12050a" stroke-width="4"/>
+<rect x="45" y="93" width="8" height="16" rx="4" fill="#ff1e3c"/><rect x="147" y="93" width="8" height="16" rx="4" fill="#ff1e3c"/>
+<ellipse cx="83" cy="100" rx="10" ry="12.5" fill="#fff" stroke="#12050a" stroke-width="3.5"/><ellipse cx="117" cy="100" rx="10" ry="12.5" fill="#fff" stroke="#12050a" stroke-width="3.5"/>
+<circle cx="86" cy="102" r="6.2" fill="#12050a"/><circle cx="114" cy="102" r="6.2" fill="#12050a"/><circle cx="88" cy="99" r="2.2" fill="#fff"/><circle cx="116" cy="99" r="2.2" fill="#fff"/>
+<path d="M70 82 L94 88" stroke="#12050a" stroke-width="5" stroke-linecap="round"/><path d="M130 82 L106 88" stroke="#12050a" stroke-width="5" stroke-linecap="round"/>
+<circle cx="68" cy="118" r="6" fill="#ff8aa0" opacity=".7"/><circle cx="132" cy="118" r="6" fill="#ff8aa0" opacity=".7"/>
+<path d="M84 121 Q100 138 118 118" fill="#fff" stroke="#12050a" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M92 126 Q100 131 110 124" fill="none" stroke="#ff6b80" stroke-width="3" stroke-linecap="round"/>
+<g transform="rotate(-14 160 168)"><rect x="140" y="140" width="40" height="64" rx="8" fill="#0a0a0e" stroke="#ffffff" stroke-width="3"/><rect x="145" y="147" width="30" height="46" rx="4" fill="#ff1e3c"/><text x="160" y="176" text-anchor="middle" font-size="15" font-family="Bangers,Impact,sans-serif" fill="#fff">DMX</text></g>
+<circle cx="146" cy="186" r="11" fill="#ffd8b5" stroke="#12050a" stroke-width="4"/>
+<path d="M22 46 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z" fill="#fff" opacity=".9"/><path d="M178 30 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#ff1e3c"/>
+</svg><div class="logo">DMX <b>FF</b></div><p>Premium Free Fire sensi &amp; panels. Pay, get your key on WhatsApp and unlock your download.</p></div>
+  <div class="stats">
+    <div class="stat"><b>${nS}</b><span>Sensi</span></div>
+    <div class="stat"><b>${nP}</b><span>Panels</span></div>
+    <div class="stat"><b>1:1</b><span>WhatsApp support</span></div></div>
+  <h2>DASHBOARD</h2>
+  <div class="grid">
+    <a class="big" href="#/list/sensi">🎯 SENSI<small>Premium sensitivity</small></a>
+    <a class="big" href="#/list/panel">🖥️ PANEL<small>Panel plans</small></a>
+    <a class="big" href="#/unlock">🗝️ UNLOCK<small>Enter your key</small></a>
+    <a class="big" href="${supportLink('Hi DMX FF, I need support')}" target="_blank">💬 SUPPORT<small>WhatsApp us</small></a>
+  </div>
+  <h2>ABOUT DMX FF</h2>
+  <div class="card"><pre>DMX FF is your one-stop store for premium Free Fire sensi and panels.
+Every product has a sample, a clear rate and a simple flow.</pre></div>
+  <div class="feat">
+    <div class="card">⚡<b>Fast delivery</b><span>Key sent on WhatsApp after payment</span></div>
+    <div class="card">🔒<b>Secure unlock</b><span>Download opens only with your key</span></div>
+    <div class="card">💳<b>Easy payment</b><span>Pay and send the order in one tap</span></div>
+    <div class="card">🛟<b>Support</b><span>Wrong password? Message our team</span></div>
+  </div>
+  <h2>HOW IT WORKS</h2>
+  <div class="card"><pre>1. Pick a Sensi or Panel
+2. Check details and rate, then pay
+3. Send your order on WhatsApp
+4. Get your key and unlock your download</pre></div>`;
+}
+function list(type){
+  const items = ITEMS.filter(i => i.type === type);
+  $app.innerHTML = `<header><a class="back" href="#/">← Back</a>${`<a class="key" href="#/unlock">🗝️ Unlock key</a>`}</header>
+  <h1>${type==='sensi'?'SENSI':'PANEL'}</h1><p class="sub">Tap one to see details</p>` +
+  (items.length ? items.map(i => `<a class="card item" href="#/item/${i.id}"><div><b class="iname">${esc(i.name)}</b><br><small>${devName(i.device)}</small></div><span class="price">₹${i.price}</span></a>`).join('')
+                : '<div class="card"><p class="sub" style="margin:0">Coming soon.</p></div>');
+}
+const STEPNAMES=['Details','Payment','Order','Key'];
+const stepBar=n=>`<div class="steps">${STEPNAMES.map((s,i)=>`<i class="${i<n?'on':''}">${i+1}. ${s}</i>`).join('')}</div>`;
+let FLOW={id:null,step:1,name:''};
+const upiLink=it=>`upi://pay?pa=${CONFIG.upiId}&pn=${encodeURIComponent(CONFIG.upiName)}&am=${it.price}.00&cu=INR&tn=${encodeURIComponent('DMX FF')}`;
+
+function item(id,reset){
+  const it = ITEMS.find(i => i.id === id);
+  if(!it) return home();
+  if(reset||FLOW.id!==id) FLOW={id,step:1,name:''};
+  const st=FLOW.step, $=x=>document.getElementById(x);
+  const back = st===1 ? `<a class="back" href="#/list/${it.type}">← Back</a>` : `<a class="back" href="javascript:void(0)" id="prev">← Back</a>`;
+  let body='';
+  const head=`<h1 class="iname">${esc(it.name)}</h1><span class="chip">${it.type==='sensi'?'Sensi':'Panel'} · ${devName(it.device)}</span>`;
+  if(st===1){
+    body=`${head}
+    ${it.video?`<div class="video"><iframe src="${esc(preview(it.video))}" allow="autoplay" allowfullscreen></iframe></div>`:''}
+    <div class="card"><div class="row"><span>Rate</span><span class="price">₹${it.price}</span></div><pre style="margin-top:10px">${esc(it.details)}</pre></div>
+    <button id="next">Next → Go to payment</button>`;
+  }else if(st===2){
+    body=`${head}
+    <div class="card pay"><div class="warn" style="margin:0">Amount to pay</div><div class="amt">₹${it.price}</div>
+      <div class="qr" id="qr"></div><div class="warn" style="margin-top:0">Scan with any UPI app (GPay, PhonePe, Paytm...)</div>
+      <a class="btn" href="${esc(upiLink(it))}">Pay ₹${it.price} with any UPI app</a>
+      <div class="upi"><span>UPI ID: <b>${esc(CONFIG.upiId)}</b></span><button id="copy" class="alt">Copy</button></div></div>
+    <button class="green" id="next">I have paid → Next</button>`;
+  }else if(st===3){
+    body=`${head}
+    <div class="card"><label>Your name</label><input id="cname" placeholder="Enter your name" value="${esc(FLOW.name)}">
+      <div class="row"><span>Item</span><b>${esc(it.name)}</b></div>
+      <div class="row"><span>Device</span><b>${devName(it.device)}</b></div>
+      <div class="row"><span>Paid</span><b>₹${it.price}</b></div></div>
+    <a class="btn green" id="wa" target="_blank" rel="noopener">✅ Place order on WhatsApp</a>
+    <p class="warn">Send the payment screenshot in the WhatsApp chat. We will reply with your key.</p>`;
+  }else{
+    body=`<div class="card pay"><div class="ok" style="font-size:18px">✅ Order placed</div>
+      <p class="warn">Waiting for your key on WhatsApp. Enter it below to unlock your download.</p></div><div id="keybox"></div>`;
+  }
+  $app.innerHTML=`<header>${back}<a class="key" href="#/unlock">🗝️ Unlock key</a></header>${stepBar(st)}${body}`;
+  if($('prev')) $('prev').onclick=()=>{FLOW.step--;item(id)};
+  if($('next')) $('next').onclick=()=>{FLOW.step++;item(id);window.scrollTo(0,0)};
+  if(st===2){
+    try{$('qr').innerHTML=makeQR(upiLink(it))}catch(e){$('qr').innerHTML=''}
+    $('copy').onclick=async()=>{try{await navigator.clipboard.writeText(CONFIG.upiId);$('copy').textContent='Copied'}catch(e){$('copy').textContent=CONFIG.upiId}};
+  }
+  if(st===3){
+    const upd=()=>{FLOW.name=$('cname').value;$('wa').href=supportLink(`New Order - DMX FF\nType: ${it.type==='sensi'?'Sensi':'Panel'}\nItem: ${it.name}\nDevice: ${devName(it.device)}\nRate: ₹${it.price}\nPayment: Done (UPI)\nName: ${FLOW.name||'-'}`)};
+    $('cname').oninput=upd;upd();
+    $('wa').onclick=()=>{setTimeout(()=>{FLOW.step=4;item(id);window.scrollTo(0,0)},700)};
+  }
+  if(st===4) keyBox($('keybox'));
+}
+function keyBox(el){
+  el.innerHTML=`<div class="card" id="form"><label>Enter your key</label><input id="key" placeholder="Enter key" autocomplete="off" inputmode="numeric" style="letter-spacing:3px;font-size:18px">
+    <button id="go">Unlock</button><p class="err" id="err"></p></div><div id="result"></div>`;
+  const $=x=>el.querySelector('#'+x);
+  const run=async()=>{
+    $('err').textContent='';const key=$('key').value.trim();if(!key)return;
+    $('go').textContent='Checking...';const hits=[];
+    for(const it of ITEMS)for(const v of(it.vault||[])){const d=await unseal(key,v);if(d)hits.push({it,d})}
+    $('go').textContent='Unlock';
+    if(!hits.length){$('err').textContent='Invalid key. Message our support team if you need help.';return}
+    $('form').classList.add('hide');
+    $('result').innerHTML=hits.map(({it,d})=>`<div class="card">
+      <div class="row"><span>Name</span><b class="iname" style="font-size:15px">${esc(it.name)}</b></div>
+      <div class="row"><span>Device</span><b>${devName(d.device)}</b></div>
+      <div class="row"><span>Password for extract zip</span><b>${d.password?esc(d.password):'No password'}</b></div>
+      ${d.url?`<a class="btn green" href="${esc(d.url)}" target="_blank" rel="noopener">⬇ Download</a>`:`<p class="warn">File is not added yet. Please message our support team.</p>`}
+      <p class="warn">If the password is wrong, message our support team.</p>
+      <a class="btn alt" target="_blank" href="${supportLink('Hi DMX FF, I need support with: '+it.name)}">💬 Message support</a></div>`).join('');
+  };
+  $('go').onclick=run;$('key').onkeydown=e=>{if(e.key==='Enter')run()};
+}
+function unlock(){
+  $app.innerHTML=`<header><a class="back" href="#/">← Home</a></header><h1>UNLOCK KEY 🗝️</h1><p class="sub">Enter the key you got on WhatsApp after payment</p><div id="keybox"></div>`;
+  keyBox(document.getElementById('keybox'));
+}
+function tools(){
+  $app.innerHTML = `<header><a class="back" href="#/">Owner tools</a></header>
+  <h1>GENERATE KEY</h1><p class="sub">Encrypts a download link with a key. Paste the output into that item's <b>vault</b> list.</p>
+  <div class="card">
+    <label>Device</label><select id="t_dev"><option value="android">Android</option><option value="ios">iOS</option><option value="both">Both</option></select>
+    <label>Download link</label><input id="t_url" placeholder="https://...">
+    <label>Extract password (optional)</label><input id="t_pw">
+    <label>Secure key</label><input id="t_key" placeholder="e.g. 1234 (blank = auto)">
+    <button id="t_go">Generate</button>
+    <div class="hide" id="t_out"><p class="warn">Key for customer:</p><div class="row"><b id="t_k"></b></div>
+      <p class="warn">Paste inside vault:[ ] of the item (comma between if more):</p><textarea id="t_v" rows="4" readonly></textarea></div>
+  </div>`;
+  const $ = x => document.getElementById(x);
+  $('t_go').onclick = async () => {
+    const url = $('t_url').value.trim(); if(!url) return;
+    const key = $('t_key').value.trim() || Array.from(crypto.getRandomValues(new Uint8Array(4))).map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();
+    const v = await seal(key, {device:$('t_dev').value, url, password:$('t_pw').value});
+    $('t_out').classList.remove('hide'); $('t_k').textContent = key; $('t_v').value = JSON.stringify(v);
+  };
+}
+function route(){
+  const [, a, b0] = location.hash.split('/'); const b = decodeURIComponent(b0||'');
+  if(a==='list') list(b); else if(a==='item') item(b,true); else if(a==='pay') pay(b); else if(a==='unlock') unlock(b==='done'); else if(a==='tools') tools(); else home();
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange', route); route();
+setTimeout(()=>{const l=document.getElementById('loader');l.style.opacity=0;setTimeout(()=>l.remove(),500)}, 2000);
+</script></body></html>
